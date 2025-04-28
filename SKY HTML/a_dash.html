@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffdd00; /* Sky yellow background */
+            overflow-x: hidden;
+            height: 100vh;
+        }
+        
+        /* Sidebar navigation */
+        .sidenav {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            overflow-x: hidden;
+            padding-top: 60px;
+        }
+        
+        .sidenav a {
+            padding: 15px 8px 15px 32px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+        }
+        
+        .sidenav a:hover {
+            color: #ffdd00;
+            background-color: #444;
+        }
+        
+        /* Admin badge */
+        .admin-badge {
+            position: absolute;
+            top: 20px;
+            right: 110px; /* Adjusted to make room for logo */
+            background-color: #e74c3c;
+            color: white;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* Main content area */
+        .page-wrapper {
+            margin-left: 250px; /* Offset for sidebar */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        /* Header with repositioned elements */
+        .dashboard-header {
+            width: 100%;
+            padding: 20px;
+            background-color: #ffdd00;
+            margin-bottom: 30px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Enlarged profile picture moved to top left */
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #e74c3c;
+            object-fit: cover;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        
+        /* Sky logo moved to top right */
+        .sky-logo {
+            width: 80px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        /* Centered dashboard title */
+        .dashboard-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
+        }
+        
+        /* Content containers */
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .dashboard-container {
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 30px;
+        }
+        
+        /* Stats area */
+        .admin-stats {
+            background-color: #8ac5d6;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        /* Stat cards */
+        .stat-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 23%;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+        
+        /* Main dashboard content */
+        .dashboard-content {
+            display: flex;
+            background-color: #8ac5d6;
+            border-radius: 10px;
+            min-height: 400px;
+            width: 100%;
+        }
+        
+        /* Left panel with metrics */
+        .team-overview {
+            flex: 2;
+            padding: 20px;
+        }
+        
+        .overview-title {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        /* Grid layouts */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .bottom-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        /* Metric cards */
+        .metric-card, .bottom-metric-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover, .bottom-metric-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .metric-icon {
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+        }
+        
+        .bottom-metric-icon {
+            width: 70px;
+            height: 70px;
+            margin-right: 10px;
+        }
+        
+        .metric-label {
+            color: #8ac5d6;
+            font-size: 16px;
+        }
+        
+        /* Right panel with actions */
+        .team-actions {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .action-button {
+            background-color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .action-button:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Special admin buttons */
+        .admin-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .admin-button:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Avatar image */
+        .admin-avatar {
+            width: 180px;
+            align-self: center;
+            margin-top: auto;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .admin-avatar:hover {
+            transform: scale(1.1);
+        }
+        
+        /* User management table area */
+        .user-management {
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 30px;
+            background-color: #8ac5d6;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        /* User table styling */
+        .user-table {
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .user-table th, .user-table td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .user-table thead {
+            background-color: #333;
+            color: white;
+        }
+        
+        .user-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        /* Table action links */
+        .user-action {
+            cursor: pointer;
+            color: #2980b9;
+            margin-right: 10px;
+        }
+        
+        .user-action:hover {
+            text-decoration: underline;
+        }
+        
+        .user-action.delete {
+            color: #e74c3c;
+        }
+        
+        /* Modal popup */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .modal-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1e22aa;
+        }
+        
+        .modal-text {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Side Navigation Bar -->
+    <div class="sidenav">
+        <a href="a_dash.html">Admin Dashboard</a>
+        <a href="#">Team Management</a>
+        <a href="#">System Analytics</a>
+        <a href="settingpage.html">System Settings</a>
+    </div>
+    
+    <!-- Main Content Area -->
+    <div class="page-wrapper">
+        <!-- Header with repositioned elements -->
+        <div class="dashboard-header">
+            <!-- Admin profile picture now larger and in top left -->
+            <img src="images/grupfp.png" alt="Admin Profile" class="profile-pic">
+            
+            <!-- Admin badge moved to accommodate logo -->
+            <div class="admin-badge">ADMIN</div>
+            
+            <!-- Sky logo now in top right -->
+            <img src="images/skylogo.png" alt="Sky Logo" class="sky-logo" onclick="goToHome()">
+            
+            <!-- Dashboard title remains centered -->
+            <div class="dashboard-title">Admin Dashboard</div>
+        </div>
+        
+        <!-- Content Container -->
+        <div class="content-container">
+            <!-- Stats Overview Section -->
+            <div class="dashboard-container">
+                <div class="admin-stats">
+                    <div class="stats-container">
+                        <!-- Key stat cards -->
+                        <div class="stat-card" onclick="showModal('Active Users', 'There are currently 1,247 active users on the platform. This represents a 7% increase from last month.')">
+                            <div class="stat-number">247</div>
+                            <div class="stat-label">Active Users</div>
+                        </div>
+                        <div class="stat-card" onclick="showModal('Teams', 'There are 86 teams currently registered on the platform. Most active team: Engineering (42 members)')">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Teams</div>
+                        </div>
+                        <div class="stat-card" onclick="showModal('System Health', '98.7% uptime over the past 30 days. Last incident: 3 days ago (resolved)')">
+                            <div class="stat-number">98.7%</div>
+                            <div class="stat-label">System Health</div>
+                        </div>
+                        <div class="stat-card" onclick="showModal('Health Check Results, Mostly Clear — 8 team votes last month. Team confidence remains high with 7 Green, 2 Yellow votes.')">
+                            <div class="stat-number">92%</div>
+                            <div class="stat-label">SKY Health Check</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main System Overview -->
+            <div class="dashboard-container">
+                <div class="dashboard-content">
+                    <!-- Left Panel: System Overview -->
+                    <div class="team-overview">
+                        <div class="overview-title">System Overview</div>
+                        
+                        <!-- Top row metrics -->
+                        <div class="metrics-grid">
+                            <div class="metric-card" onclick="showModal('Security Status', 'Security status is GREEN. No unauthorised access attempts detected in the past 7 days. Latest security patches installed. Consider scheduling next security audit for next month.')">
+                                <img src="images/security.png" alt="Security" class="metric-icon">
+                                <div class="metric-label">security</div>
+                            </div>
+                            
+                            <div class="metric-card" onclick="showModal('Database Health', 'Database performance is optimal. Average query time: 0.23s. Storage usage at 68%.')">
+                                <img src="images/database.png" alt="Database" class="metric-icon">
+                                <div class="metric-label">database health</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Bottom row metrics -->
+                        <div class="bottom-metrics">
+                            <div class="bottom-metric-card" onclick="showModal('User Activity', 'Peak usage times: 9-11am and 2-4pm. Average session duration: 23 minutes. Most accessed feature: Team Dashboard (78% of users).')">
+                                <img src="images/useractivity.png" alt="User Activity" class="bottom-metric-icon">
+                                <div class="metric-label">user activity</div>
+                            </div>
+                            
+                            <div class="bottom-metric-card" onclick="showModal('API Performance', 'API response time average: 187ms. Error rate: 0.3%. Most used endpoint: /teams/data (42% of total calls).')">
+                                <img src="images/api.png" alt="API" class="bottom-metric-icon">
+                                <div class="metric-label">api performance</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Panel: Admin Actions -->
+                    <div class="team-actions">
+                        <div class="action-buttons">
+                            <!-- Added Google Calendar link to maintenance button -->
+                            <button class="admin-button" onclick="window.open('https://calendar.google.com', '_blank')">schedule maintenance</button>
+                            <button class="admin-button" onclick="showModal('Security Alert', 'Send security alert or notification to all users about upcoming changes or security practices.')">send system alert</button>
+                            <button class="action-button" onclick="window.location.href='user-permissions.html'">manage permissions</button>
+                        </div>
+                        <img src="images/grugreen.gif" alt="Admin Avatar" class="admin-avatar" onclick="showModal('Admin Tip', 'Remember to check the pending requests queue daily. Teams are waiting for your approval to add new members!')">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- User Activity Table -->
+            <div class="user-management">
+                <div class="overview-title">Recent User Activity</div>
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Team</th>
+                            <th>Last Activity</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John Smith</td>
+                            <td>Engineering</td>
+                            <td>Today, 10:23 AM</td>
+                            <td>Active</td>
+                            <td>
+                                <span class="user-action" onclick="showModal('View User', 'View detailed information about John Smith')">View</span>
+                                <span class="user-action" onclick="showModal('Edit User', 'Edit John Smith\'s profile and permissions')">Edit</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sarah Johnson</td>
+                            <td>Design</td>
+                            <td>Today, 9:45 AM</td>
+                            <td>Active</td>
+                            <td>
+                                <span class="user-action" onclick="showModal('View User', 'View detailed information about Sarah Johnson')">View</span>
+                                <span class="user-action" onclick="showModal('Edit User', 'Edit Sarah Johnson\'s profile and permissions')">Edit</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Mike Williams</td>
+                            <td>Marketing</td>
+                            <td>Yesterday, 4:12 PM</td>
+                            <td>Inactive</td>
+                            <td>
+                                <span class="user-action" onclick="showModal('View User', 'View detailed information about Mike Williams')">View</span>
+                                <span class="user-action" onclick="showModal('Edit User', 'Edit Mike Williams\'s profile and permissions')">Edit</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Emily Davis</td>
+                            <td>Engineering</td>
+                            <td>Yesterday, 2:30 PM</td>
+                            <td>Active</td>
+                            <td>
+                                <span class="user-action" onclick="showModal('View User', 'View detailed information about Emily Davis')">View</span>
+                                <span class="user-action" onclick="showModal('Edit User', 'Edit Emily Davis\'s profile and permissions')">Edit</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Popup -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-title" id="modalTitle">Information</div>
+            <div class="modal-text" id="modalText">Content of popup will appear here</div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // Navigate to home page
+        function goToHome() {
+            window.location.href = "nav.html";
+        }
+        
+        // Show modal with dynamic content
+        function showModal(title, content) {
+            document.getElementById("modalTitle").textContent = title;
+            document.getElementById("modalText").textContent = content;
+            document.getElementById("infoModal").style.display = "block";
+        }
+        
+        // Close the modal
+        function closeModal() {
+            document.getElementById("infoModal").style.display = "none";
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById("infoModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
