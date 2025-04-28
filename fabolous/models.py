@@ -4,6 +4,19 @@ class Department(models.Model):
     number = models.CharField(max_length=20)
     type = models.CharField(max_length=200)
     summary = models.CharField(max_length=50, default="No summary provided")
+    
+class User(models.Model):
+    userName = models.CharField(max_length=40)
+    fullName = models.CharField(max_length=30, null=True, blank=True)
+    email = models.EmailField(max_length=100, null=True, blank=True)
+    password=models.CharField(max_length=100, null=True, blank=True)
+    team_leaderFlag=models.BooleanField(default=False)
+    team_leaderId= models.CharField(max_length=20, blank=True, null=True)
+    roles_flag= models.BooleanField(default=True)
+    roles=models.CharField(max_length=100, null=True, blank=False)
+    engineer_flag=models.BooleanField(default=True)
+    engineer_id=models.CharField(max_length=20, null=True,blank=True)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
 
 
 
