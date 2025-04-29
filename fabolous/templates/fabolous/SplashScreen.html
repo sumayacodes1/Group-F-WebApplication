@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,6 @@
     <title>SplashScreen</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-    
   <style>
     body, html {
     height: 100%;
@@ -19,7 +19,7 @@
   .splash-screen {
     width: 100%;
     height: 100vh;
-    background: url('images/Splashscreen-image.jpeg') no-repeat center center;
+    background: url("{% static 'images/Splashscreen-image.jpeg' %}") no-repeat center center;
     background-size: contain ;
     background-size: 100% 100%;
     background-position: center;
@@ -118,7 +118,7 @@
     <div id="splash" class="splash-screen d-flex align-items-center justify-content-end">
         <div class="splash-content text-center text-black p-5 animate-in">
           <img
-            src="images/Sky logo.png"
+            src="{% static 'images/Sky logo.png' %}"
             width="100"
             height="100"
             class="sky-logo mb-4"
