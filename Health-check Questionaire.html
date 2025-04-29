@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sky Health Check - LocalStorage + Animations</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: url('images/Background\ img.png') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+    .header {
+      background-color: rgba(0,0,128,0.7);
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 28px;
+      color: red;
+      text-shadow: 1px 1px #000;
+      position: relative;
+    }
+    .top-selects {
+      background-color: rgba(0,0,128,0.8);
+      padding: 10px;
+      margin-top: -10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .top-selects label {
+      margin-right: 5px;
+      font-size: 18px;
+    }
+    .top-selects select {
+      background: white;
+      color: black;
+      border-radius: 10px;
+      padding: 5px 15px;
+      border: none;
+      font-size: 16px;
+    }
+    .sky-logo {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      width: 80px;
+      height: auto;
+    }
+    .progress-container {
+      margin: 20px auto;
+      width: 70%;
+    }
+    .custom-progress {
+      height: 20px;
+      background-color: white;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    .custom-progress-bar {
+      height: 100%;
+      background-color: #28a745;
+      text-align: center;
+      line-height: 20px;
+      color: black;
+      font-weight: bold;
+    }
+    .health-card {
+      background: rgba(0, 0, 255, 0.6);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 30px auto;
+      max-width: 700px;
+      text-align: center;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+    .health-card.show {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+    .question-mark {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: white;
+      color: black;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .vote-buttons {
+      margin-top: 30px;
+    }
+    .vote-buttons button {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 15px;
+      border: none;
+      font-size: 20px;
+      transition: all 0.3s ease;
+    }
+    .vote-buttons button.selected {
+      border: 3px solid black;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div class="header">
+  Hello John! Welcome to SKY health check.
+  <img src="images/Sky logo.png" alt="Sky Logo" class="sky-logo">
+</div>
+
+<!-- Top selects -->
+<div class="top-selects">
+  <div>
+    <label>Select Team for Health Check:</label>
+    <select>
+      <option>Team 1</option>
+      <option selected>Team 2</option>
+      <option>Team 3</option>
+    </select>
+  </div>
+  <div>
+    <label>Select Team:</label>
+    <select>
+      <option selected>Engineering Team</option>
+      <option>Marketing Team</option>
+      <option>Support Team</option>
+    </select>
+  </div>
+</div>
+
+<!-- Progress -->
+<div class="progress-container">
+  <div class="custom-progress">
+    <div id="progress-bar" class="custom-progress-bar" style="width: 0%;">0%</div>
+  </div>
+</div>
+
+<!-- Health Card -->
+<div id="card-container">
+  <!-- Dynamic content by JS -->
+</div>
+
+<!-- Navigation -->
+<div class="d-flex justify-content-center mb-5">
+  <button class="btn btn-light mx-2" onclick="prevCard()" id="backBtn">Back</button>
+  <button class="btn btn-primary mx-2" onclick="nextCard()" id="nextBtn">Next</button>
+  <button class="btn btn-success mx-2 d-none" onclick="finish()" id="finishBtn">Finish</button>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// 10 Health Check Questions
+const questions = [
+  {title: "Delivering Value", descriptionLeft: "We deliver great stuff! Stakeholders are happy.", descriptionRight: "We deliver poor quality. Stakeholders are unhappy."},
+  {title: "Codebase Health", descriptionLeft: "The code is clean and maintainable.", descriptionRight: "The code is messy and risky."},
+  {title: "Testing", descriptionLeft: "Tests are reliable and automatic.", descriptionRight: "Tests are missing or unreliable."},
+  {title: "Team Morale", descriptionLeft: "Team is positive and motivated.", descriptionRight: "Team is stressed and frustrated."},
+  {title: "Collaboration", descriptionLeft: "Great collaboration and trust.", descriptionRight: "Poor collaboration and conflicts."},
+  {title: "Technical Debt", descriptionLeft: "Tech debt is low and managed.", descriptionRight: "High tech debt causing delays."},
+  {title: "Stakeholder Engagement", descriptionLeft: "Stakeholders are involved and supportive.", descriptionRight: "Stakeholders are disengaged and critical."},
+  {title: "Learning Culture", descriptionLeft: "Continuous learning is encouraged.", descriptionRight: "No time or support for learning."},
+  {title: "Fun", descriptionLeft: "Work is fun and enjoyable.", descriptionRight: "Work is stressful and boring."},
+  {title: "Speed", descriptionLeft: "We deliver at a good pace.", descriptionRight: "We are slow and delayed."}
+];
+
+let current = 0;
+let responses = JSON.parse(localStorage.getItem('healthCheckResponses')) || {};
+
+function renderCard() {
+  const container = document.getElementById('card-container');
+  const q = questions[current];
+  container.innerHTML = `
+    <div class="health-card" id="card">
+      <div class="question-mark" onclick="showHelp('${q.descriptionLeft}', '${q.descriptionRight}')">?</div>
+      <h5 class="mb-2">Question ${current + 1} of ${questions.length}</h5>
+      <h2 class="mb-4">${q.title}</h2>
+      <div class="d-flex justify-content-around flex-wrap">
+        <p style="max-width: 45%;">${q.descriptionLeft}</p>
+        <p style="max-width: 45%;">${q.descriptionRight}</p>
+      </div>
+      <div class="vote-buttons d-flex justify-content-center mt-3">
+        <button class="bg-success" onclick="selectVote(this, 'green')"></button>
+        <button class="bg-warning" onclick="selectVote(this, 'amber')"></button>
+        <button class="bg-danger" onclick="selectVote(this, 'red')"></button>
+      </div>
+    </div>
+  `;
+  
+  setTimeout(() => {
+    document.getElementById('card').classList.add('show');
+  }, 50);
+  
+  highlightSavedVote();
+  updateProgress();
+  updateButtons();
+}
+
+function selectVote(button, color) {
+  const buttons = button.parentElement.querySelectorAll('button');
+  buttons.forEach(btn => btn.classList.remove('selected'));
+  button.classList.add('selected');
+  responses[current] = color;
+  localStorage.setItem('healthCheckResponses', JSON.stringify(responses));
+}
+
+function highlightSavedVote() {
+  const saved = responses[current];
+  if (saved) {
+    const btns = document.querySelectorAll('.vote-buttons button');
+    if (saved === 'green') btns[0].classList.add('selected');
+    if (saved === 'amber') btns[1].classList.add('selected');
+    if (saved === 'red') btns[2].classList.add('selected');
+  }
+}
+
+function nextCard() {
+  if (current < questions.length - 1) {
+    current++;
+    renderCard();
+  }
+}
+
+function prevCard() {
+  if (current > 0) {
+    current--;
+    renderCard();
+  }
+}
+
+function updateProgress() {
+  const progress = ((current + 1) / questions.length) * 100;
+  const progressBar = document.getElementById('progress-bar');
+  progressBar.style.width = progress + '%';
+  progressBar.innerText = Math.round(progress) + '%';
+}
+
+function updateButtons() {
+  const nextBtn = document.getElementById('nextBtn');
+  const finishBtn = document.getElementById('finishBtn');
+  if (current === questions.length - 1) {
+    nextBtn.classList.add('d-none');
+    finishBtn.classList.remove('d-none');
+  } else {
+    nextBtn.classList.remove('d-none');
+    finishBtn.classList.add('d-none');
+  }
+}
+
+function showHelp(left, right) {
+  alert(`Good:\n${left}\n\nBad:\n${right}`);
+}
+
+function finish() {
+  alert("✅ Your Health Check answers have been saved! (Check localStorage)");
+  console.log("Saved Answers:", responses);
+}
+
+renderCard();
+</script>
+
+</body>
+</html>
