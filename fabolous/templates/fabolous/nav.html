@@ -1,3 +1,4 @@
+<!-- coded by Sadia -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@
             height: 100vh;
         }  
         
-        /* The side navigation menu */
+        /* The navigation menu links */
         .sidenav {
             height: 100%;
             width: 0;
@@ -29,39 +30,6 @@
             padding-top: 60px;
         }
         
-        /* The navigation menu links */
-        .sidenav a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 18px;
-            color: #fff;
-            display: block;
-            transition: 0.3s;
-        }
-        
-        .sidenav a:hover {
-            color: #ffdd00;
-        }
-        
-        /* Position the close button */
-        .sidenav .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-        
-        /* Homepage link */
-        .homepage-link {
-            position: absolute;
-            top: 10px;
-            left: 15px;
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        
         /* Logo style */
         .logo {
             position: absolute;
@@ -69,15 +37,6 @@
             right: 20px;
             max-height: 50px;
             cursor: pointer;
-        }
-        
-        /* Menu button style */
-        .menu-btn {
-            font-size: 20px;
-            cursor: pointer;
-            color: white;
-            padding: 10px;
-            display: none; /* Hide the menu button by default to match design */
         }
         
         /* Main content */
@@ -93,7 +52,7 @@
         .welcome-text {
             font-size: 48px;
             font-weight: bold;
-            color: white;
+            color: black;
             margin-bottom: 30px;
             text-align: center;
         }
@@ -132,24 +91,24 @@
     <!-- Side Navigation -->
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Health Check</a>
+        <a href="Health-check Questionaire.html">Health Check</a>
         <a href="u_dash.html">Team Dashboard</a>
-        <a href="#">View Results</a>
+        <a href="results.html">View Results</a>
         <a href="settingpage.html">Settings Page</a>
     </div>
 
     
     <!-- Logo -->
-    <img src="skylogo.png" alt="Sky Logo" class="logo" onclick="goToHome()">
+    <img src="images\skylogo.png" alt="Sky Logo" class="logo" onclick="goToHome()">
     
     <!-- Main Content -->
     <div class="main-content">
         <div class="welcome-text">Welcome USER</div>
         
-        <div class="button-container">
-            <button class="menu-button" onclick="location.href='#health-check'">health check</button>
+        <div class="button-container"> 
+            <button class="menu-button" onclick="location.href='how_to.html'">health check</button>
             <button class="menu-button" onclick="location.href='u_dash.html'">team dashboard</button>
-            <button class="menu-button" onclick="location.href='#view-results'">view results</button>
+            <button class="menu-button" onclick="location.href='results.html'">view results</button>
             <button class="menu-button" onclick="location.href='settingpage.html'">settings page</button>
         </div>
     </div>
