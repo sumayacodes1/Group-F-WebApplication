@@ -1,0 +1,513 @@
+ <!--coded by Sadia, co-collaborator on css with Hooria  -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Sky Health Check Results</title>
+     <style>
+         :root {
+             --primary-color: #ffdd00;
+             --cloud-white: #f8f9fa;
+             --grey-light: #e9ecef;
+             --red: #f76c6c;
+             --yellow: #f7d36c;
+             --green: #8ed081;
+         }
+         
+         body {
+             font-family: 'Arial', sans-serif;
+             background-color: var(--primary-color); /* Changed to solid color */
+             min-height: 100vh;
+             margin: 0;
+             padding: 0;
+             color: #333;
+         }
+         
+         /* Sidebar navigation */
+         .sidenav {
+             height: 100%;
+             width: 250px;
+             position: fixed;
+             z-index: 1;
+             top: 0;
+             left: 0;
+             background-color: #333;
+             overflow-x: hidden;
+             padding-top: 60px;
+         }
+         
+         .sidenav a {
+             padding: 15px 8px 15px 32px;
+             text-decoration: none;
+             font-size: 18px;
+             color: #fff;
+             display: block;
+             transition: 0.3s;
+         }
+         
+         .sidenav a:hover {
+             color: var(--primary-color);
+             background-color: #444;
+         }
+ 
+         /* Added sky logo styles */
+         .header-right {
+             position: absolute;
+             top: 20px;
+             right: 30px;
+             z-index: 2;
+         }
+ 
+         .sky-logo {
+             width: 80px;
+             cursor: pointer;
+         }
+ 
+         .container {
+             max-width: 1200px;
+             margin: 0 auto;
+             padding: 2rem;
+         }
+         
+         header {
+             text-align: center;
+             margin-bottom: 2rem;
+             padding: 2rem;
+             background-color: rgba(255, 255, 255, 0.9);
+             border-radius: 10px;
+             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+         }
+         
+         h1 {
+             color: #333;
+             margin-bottom: 0.5rem;
+         }
+         
+         .intro {
+             max-width: 800px;
+             margin: 0 auto;
+             line-height: 1.6;
+         }
+         
+         .health-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+             gap: 1.5rem;
+             margin-top: 2rem;
+         }
+         
+         .health-card {
+             background-color: var(--cloud-white);
+             border-radius: 10px;
+             padding: 1.5rem;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+             transition: transform 0.3s ease;
+         }
+         
+         .health-card:hover {
+             transform: translateY(-5px);
+         }
+         
+         .card-header {
+             margin-bottom: 1rem;
+             padding-bottom: 0.5rem;
+             border-bottom: 2px solid var(--grey-light);
+         }
+         
+         .card-header h3 {
+             margin: 0;
+             color: #333;
+         }
+         
+         .trend-indicator {
+             display: flex;
+             align-items: center;
+             margin-top: 0.5rem;
+             font-size: 0.9rem;
+         }
+         
+         .trend-icon {
+             margin-right: 0.5rem;
+             font-size: 1.2rem;
+         }
+         
+         .trend-up { color: var(--green); }
+         .trend-down { color: var(--red); }
+         .trend-neutral { color: var(--yellow); }
+         
+         .health-status {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             margin-top: 1rem;
+         }
+         
+         .status-indicator {
+             width: 100%;
+             height: 30px;
+             border-radius: 15px;
+             overflow: hidden;
+             background-color: var(--grey-light);
+         }
+         
+         .status-bar {
+             height: 100%;
+             border-radius: 15px;
+             transition: width 0.5s ease;
+         }
+         
+         .status-good { background-color: var(--green); }
+         .status-medium { background-color: var(--yellow); }
+         .status-poor { background-color: var(--red); }
+         
+         .comments-section {
+             margin-top: 1rem;
+             font-size: 0.9rem;
+         }
+         
+         .comment {
+             background-color: var(--grey-light);
+             padding: 0.8rem;
+             border-radius: 8px;
+             margin-bottom: 0.5rem;
+         }
+         
+         .summary-section {
+             background-color: rgba(255, 255, 255, 0.9);
+             border-radius: 10px;
+             padding: 1.5rem;
+             margin: 2rem 0;
+             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+         }
+         
+         .summary-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+             gap: 1rem;
+             margin-top: 1.5rem;
+         }
+         
+         .summary-item {
+             text-align: center;
+         }
+         
+         .summary-value {
+             font-size: 2rem;
+             font-weight: bold;
+             color: #333;
+         }
+         
+         .card-description {
+             margin-bottom: 1rem;
+             font-size: 0.9rem;
+             color: #666;
+         }
+         
+         .timeframe-selector {
+             margin: 2rem auto;
+             text-align: center;
+         }
+         
+         .timeframe-selector select {
+             padding: 0.5rem 1rem;
+             border-radius: 20px;
+             border: 2px solid #333;
+             background-color: var(--cloud-white);
+             color: #333;
+             font-weight: 600;
+             cursor: pointer;
+         }
+         
+         .email-subscription {
+             background-color: var(--cloud-white);
+             border-radius: 10px;
+             padding: 1.5rem;
+             margin: 2rem 0;
+             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+             text-align: center;
+         }
+         
+         .email-form {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             max-width: 500px;
+             margin: 1rem auto;
+         }
+         
+         .email-input {
+             width: 100%;
+             padding: 0.75rem;
+             border-radius: 20px;
+             border: 2px solid #ddd;
+             margin-bottom: 1rem;
+         }
+         
+         .submit-button {
+             background-color: var(--primary-color);
+             color: #333;
+             border: none;
+             padding: 0.75rem 2rem;
+             border-radius: 20px;
+             font-weight: 600;
+             cursor: pointer;
+             transition: background-color 0.3s;
+         }
+         
+         .checkbox-container {
+             display: flex;
+             align-items: center;
+             margin: 1rem 0;
+         }
+         
+         .checkbox-container input {
+             margin-right: 0.5rem;
+         }
+         
+         @media (max-width: 768px) {
+             .health-grid {
+                 grid-template-columns: 1fr;
+             }
+             
+             .summary-grid {
+                 grid-template-columns: repeat(2, 1fr);
+             }
+         }
+     </style>
+ </head>
+ <body>
+     <!-- Side navigation menu links -->
+     <div id="mySidenav" class="sidenav">
+         <a href="u_dash.html">Dashboard</a>
+         <a href="u_dash.html">Team Overview</a>
+         <a href="how_to.html">Health Check</a>
+         <a href="results.html">View Results</a>
+         <a href="settingpage.html">Settings</a>
+     </div>
+ 
+     <!-- Sky logo which renavigates to nav screen -->
+     <div class="header-right">
+         <img src="images/skylogo.png" alt="Sky Logo" class="sky-logo" onclick="window.location.href='nav.html'"/>
+     </div>
+ 
+     <div class="container">
+         <header>
+             <h1>Sky Health Check Results</h1>
+             <p class="intro">
+                 Here are the results for the latest health check of your team. 
+                 This report provides insights into the overall health of your team, including delivery value, mission alignment, learning opportunities, and more. 
+                 Use this information to identify areas for improvement and celebrate successes.
+             </p>
+         </header>
+         
+         <div class="timeframe-selector">
+             <select id="timeframeSelect">
+                 <option value="current">Current Quarter (Q2 2025)</option>
+                 <option value="previous">Previous Quarter (Q1 2025)</option>
+             </select>
+         </div>
+                 
+         <div class="summary-section">
+             <h2>Overall Health Summary</h2>
+             <div class="summary-grid">
+                 <div class="summary-item">
+                     <div class="summary-value">78%</div>
+                     <div>Overall Health</div>
+                 </div>
+                 <div class="summary-item">
+                     <div class="summary-value">83%</div>
+                     <div>Team Morale</div>
+                 </div>
+                 <div class="summary-item">
+                     <div class="summary-value">72%</div>
+                     <div>Delivery Speed</div>
+                 </div>
+                 <div class="summary-item">
+                     <div class="summary-value">+5%</div>
+                     <div>Improvement</div>
+                 </div>
+                 <div class="summary-item">
+                     <div class="summary-value">4</div>
+                     <div>Teams</div>
+                 </div> 
+             </div>
+         </div>
+         
+         <div class="health-grid">
+             <!-- Delivery Value -->
+             <div class="health-card">
+                 <div class="card-header">
+                     <h3>Delivery Value</h3>
+                     <div class="card-description">How valuable is what we deliver to our customers?</div>
+                     <div class="trend-indicator">
+                         <span class="trend-icon trend-up">↑</span>
+                         <span>Improving since last check</span>
+                     </div>
+                 </div>
+                 <div class="health-status">
+                     <div class="status-indicator">
+                         <div class="status-bar status-good" style="width: 85%"></div>
+                     </div>
+                 </div>
+                 <div class="comments-section">
+                     <div class="comment">
+                         "Our focus on core user problems has really paid off this quarter."
+                     </div>
+                 </div>
+             </div>
+             
+             <!-- Mission -->
+             <div class="health-card">
+                 <div class="card-header">
+                     <h3>Mission</h3>
+                     <div class="card-description">Do we understand and believe in our team's mission?</div>
+                     <div class="trend-indicator">
+                         <span class="trend-icon trend-up">↑</span>
+                         <span>Improving since last check</span>
+                     </div>
+                 </div>
+                 <div class="health-status">
+                     <div class="status-indicator">
+                         <div class="status-bar status-good" style="width: 85%"></div>
+                     </div>
+                 </div>
+                 <div class="comments-section">
+                     <div class="comment">
+                         "New vision workshops helped align everyone on our core objectives."
+                     </div>
+                 </div>
+             </div>
+             
+             <!-- Learning -->
+             <div class="health-card">
+                 <div class="card-header">
+                     <h3>Learning</h3>
+                     <div class="card-description">Are we improving skills and learning new things?</div>
+                     <div class="trend-indicator">
+                         <span class="trend-icon trend-down">↓</span>
+                         <span>Declining since last check</span>
+                     </div>
+                 </div>
+                 <div class="health-status">
+                     <div class="status-indicator">
+                         <div class="status-bar status-poor" style="width: 45%"></div>
+                     </div>
+                 </div>
+                 <div class="comments-section">
+                     <div class="comment">
+                         "High delivery pressure has limited time for learning and innovation."
+                     </div>
+                 </div>
+             </div>
+             
+             <!-- Fun -->
+             <div class="health-card">
+                 <div class="card-header">
+                     <h3>Fun</h3>
+                     <div class="card-description">Do we enjoy our work and have fun together?</div>
+                     <div class="trend-indicator">
+                         <span class="trend-icon trend-up">↑</span>
+                         <span>Improving since last check</span>
+                     </div>
+                 </div>
+                 <div class="health-status">
+                     <div class="status-indicator">
+                         <div class="status-bar status-good" style="width: 80%"></div>
+                     </div>
+                 </div>
+                 <div class="comments-section">
+                     <div class="comment">
+                         "Monthly social events and game sessions have really brought the team together."
+                     </div>
+                 </div>
+             </div>
+             
+             <!-- Focus -->
+             <div class="health-card">
+                 <div class="card-header">
+                     <h3>Focus</h3>
+                     <div class="card-description">Are we able to focus on important work without distractions?</div>
+                     <div class="trend-indicator">
+                         <span class="trend-icon trend-neutral">→</span>
+                         <span>Stable</span>
+                     </div>
+                 </div>
+                 <div class="health-status">
+                     <div class="status-indicator">
+                         <div class="status-bar status-medium" style="width: 60%"></div>
+                     </div>
+                 </div>
+                 <div class="comments-section">
+                     <div class="comment">
+                         "No-meeting Wednesdays help, still handling too many context switches."
+                     </div>
+                 </div>
+             </div>
+                    
+             <!-- Collaboration -->
+             <div class="health-card">
+                 <div class="card-header">
+                     <h3>Collaboration</h3>
+                     <div class="card-description">How well do we collaborate within and across teams?</div>
+                     <div class="trend-indicator">
+                         <span class="trend-icon trend-up">↑</span>
+                         <span>Improving</span>
+                     </div>
+                 </div>
+                 <div class="health-status">
+                     <div class="status-indicator">  
+                         <div class="status-bar status-good" style="width: 80%"></div>
+                     </div>
+                 </div>
+                 <div class="comments-section">
+                     <div class="comment">
+                         "New collaboration tools and cross-team initiatives have broken down."
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <!-- email subscription form at the bottom of the page -->
+         <div class="email-subscription">
+             <h2>Receive This Report</h2>
+             <p>Get this health check report delivered to your inbox</p>
+             <form class="email-form">
+                 <input type="email" class="email-input" placeholder="Enter your email" required>
+                 <div class="checkbox-container">
+                     <input type="checkbox" id="subscribe-checkbox">
+                     <label for="subscribe-checkbox">I agree to receive this report and future updates</label>
+                 </div>
+                 <button type="submit" class="submit-button">Download Report</button>
+             </form>
+         </div> 
+     </div>
+     
+     <script>        
+         // Simple animation for status bars on page load referenced from online video
+         window.addEventListener('DOMContentLoaded', () => {
+             const statusBars = document.querySelectorAll('.status-bar');
+             statusBars.forEach(bar => {
+                 const width = bar.style.width;
+                 bar.style.width = '0';
+                 setTimeout(() => {
+                     bar.style.width = width;
+                 }, 300);
+             });
+         });
+         
+         // Email subscription form referecned from w3schools
+         const emailForm = document.querySelector('.email-form');
+         emailForm.addEventListener('submit', (e) => {
+             e.preventDefault();
+             const email = document.querySelector('.email-input').value;
+             const isSubscribed = document.getElementById('subscribe-checkbox').checked;
+             
+             if (isSubscribed) {
+                 alert(`Thank you! The report will be sent to ${email}`);
+             } else {
+                 alert('Please check the subscription box to receive the report.');
+             }
+         });
+     </script>
+ </body>
+ </html>
