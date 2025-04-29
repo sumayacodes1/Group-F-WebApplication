@@ -16,10 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from fabolous import views as fabolousViews
+from fabolous import views as fabolousViewsxx   
+from fabolous import views
+
+
+# fabolous/urls.py
+
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', fabolousViews.home, name='home'),
-    path('login/', fabolousViews.login_view, name='login'),  # Map '/login/' to login_view
+    path('', include('fabolous.urls')),  # Correct: include the app's URL config
 ]
+
+
+
+

@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', fabolousViews.home, name='home'),
     path('login/', fabolousViews.login_view, name='login'),  # Map '/login/' to login_view
+    path('register/', fabolousViews.register_view, name='register'),
 ]

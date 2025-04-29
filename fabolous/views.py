@@ -8,12 +8,17 @@ from django.contrib import messages
 def home(request):
     return render(request, 'fabolous/SplashScreen.html')
 
-   
+  
+
+def register_view(request):
+    return render(request, 'register.html')
+
 
 from django.contrib.auth import authenticate, login
 
 
 def login_view(request):
+
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -24,5 +29,9 @@ def login_view(request):
             messages.success(request, 'Login successful!')
         else:
             messages.error(request, 'Username or password is incorrect.')
+        
 
     return render(request, 'fabolous/login.html')
+
+def register_view(request):
+    return render(request, 'fabolous/register.html')
