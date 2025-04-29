@@ -18,7 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from fabolous import views as fabolousViews
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', fabolousViews.home)
+    path("", fabolousViews.home),
+    
+    
 ]

@@ -58,6 +58,11 @@ class Department_Leaders(models.Model):
 
     def __str__(self):
         return f"{self.department} - {self.departmentViewTeams}"
+    
+
+class Administrator(models.Model):
+    adminId = models.CharField
+    
 
 
 
