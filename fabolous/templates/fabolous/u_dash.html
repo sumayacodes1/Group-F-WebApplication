@@ -1,3 +1,4 @@
+<!-- coded by Sadia co-collaborator on css with Sumaya -->
 <!DOCTYPE html> 
 <html lang="en">
 <head>
@@ -86,7 +87,8 @@
       cursor: pointer;
     }
 
-    .content-container {
+    /* overview of team container */
+    .content-container { 
       display: flex;
       justify-content: center;
       align-items: center;
@@ -118,7 +120,7 @@
       font-weight: bold;
       margin-bottom: 20px;
     }
-
+    /* team overview cards */
     .metrics-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -261,11 +263,12 @@
   </style>
 </head>
 <body>
+  <!-- side navigation menu links -->
   <div id="mySidenav" class="sidenav">
     <a href="u_dash.html">Dashboard</a>
-    <a href="#">Team Overview</a>
-    <a href="#">Projects</a>
-    <a href="#">Health Check</a>
+    <a href="u_dash.html">Team Overview</a>
+    <a href="how_to.html">Health Check</a>
+    <a href="results.html">View Results</a>
     <a href="settingpage.html">Settings</a>
   </div>
 
@@ -329,7 +332,7 @@
     <div class="minion-caption">click me</div>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal aka pop up box-->
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -341,7 +344,7 @@
   <script>
     // Function to navigate to the homepage
     function goToHome() {
-      window.location.href = "nav.html"; // Redirects the user to "nav.html"
+      window.location.href = "nav.html"; // Redirects the user to "nav.html which is the main homepage"
     }
   
     // Function to show the popup with a title and content
