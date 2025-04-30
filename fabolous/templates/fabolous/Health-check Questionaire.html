@@ -1,3 +1,6 @@
+<!--Author : Dhruvi Soni (Student Id: W19121633)
+co-author:Hooria (helped in adding animations)
+-->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -275,8 +278,10 @@ function showHelp(left, right) {
 }
 
 function finish() {
-  alert("✅ Your Health Check answers have been saved! (Check localStorage)");
-  console.log("Saved Answers:", responses);
+    // 1) persist into localStorage
+    localStorage.setItem('healthCheckResponses', JSON.stringify(responses));
+    // 2) then navigate to the Django results view
+    window.location.href = "{% url 'results' %}";
 }
 
 renderCard();

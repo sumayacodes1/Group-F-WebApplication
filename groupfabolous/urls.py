@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', fabolousViews.home, name='home'),
     path('login/', fabolousViews.login_view, name='login'),  # Map '/login/' to login_view
+    path('nav/', fabolousViews.nav_view, name='nav'),  # Map '/nav/' to nav_view
     path('register/', fabolousViews.register_view, name='register'),
     path('how-to/', fabolousViews.help_page, name='help'),  # Comes before voting
     path('vote/', fabolousViews.questionnaire_view, name='vote'),

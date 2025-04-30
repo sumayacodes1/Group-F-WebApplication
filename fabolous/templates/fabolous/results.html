@@ -18,7 +18,7 @@
          
          body {
              font-family: 'Arial', sans-serif;
-             background-color: var(--primary-color); /* Changed to solid color */
+             background-color: var(--primary-color);
              min-height: 100vh;
              margin: 0;
              padding: 0;
@@ -28,7 +28,7 @@
          /* Sidebar navigation */
          .sidenav {
              height: 100%;
-             width: 250px;
+             width: 150px;
              position: fixed;
              z-index: 1;
              top: 0;
@@ -52,7 +52,7 @@
              background-color: #444;
          }
  
-         /* Added sky logo styles */
+         /* Sky logo styles */
          .header-right {
              position: absolute;
              top: 20px;
@@ -286,18 +286,21 @@
         <a href="{% url 'settings' %}">Settings Page</a>
      </div>
  
-     <!-- Sky logo which renavigates to nav screen -->
+     <!-- Sky logo which navigates back to nav screen -->
      <div class="header-right">
-         <img src="{% static 'images/skylogo.png'%}" alt="Sky Logo" class="sky-logo" onclick="window.location.href='nav.html'"/>
+       <a href="{% url 'nav' %}">
+         <img src="{% static 'images/skylogo.png' %}"
+              alt="Sky Logo"
+              class="sky-logo" />
+       </a>
      </div>
  
      <div class="container">
          <header>
              <h1>Sky Health Check Results</h1>
              <p class="intro">
-                 Here are the results for the latest health check of your team. 
-                 This report provides insights into the overall health of your team, including delivery value, mission alignment, learning opportunities, and more. 
-                 Use this information to identify areas for improvement and celebrate successes.
+                 Here are the results for the latest health check of your team.
+                 Use this information to identify areas for improvement.
              </p>
          </header>
          
@@ -339,7 +342,9 @@
              <div class="health-card">
                  <div class="card-header">
                      <h3>Delivery Value</h3>
-                     <div class="card-description">How valuable is what we deliver to our customers?</div>
+                     <div class="card-description">
+                       How valuable is what we deliver to our customers?
+                     </div>
                      <div class="trend-indicator">
                          <span class="trend-icon trend-up">↑</span>
                          <span>Improving since last check</span>
@@ -347,7 +352,7 @@
                  </div>
                  <div class="health-status">
                      <div class="status-indicator">
-                         <div class="status-bar status-good" style="width: 85%"></div>
+                         <div class="status-bar" data-index="0"></div>
                      </div>
                  </div>
                  <div class="comments-section">
@@ -361,7 +366,9 @@
              <div class="health-card">
                  <div class="card-header">
                      <h3>Mission</h3>
-                     <div class="card-description">Do we understand and believe in our team's mission?</div>
+                     <div class="card-description">
+                       Do we understand and believe in our team's mission?
+                     </div>
                      <div class="trend-indicator">
                          <span class="trend-icon trend-up">↑</span>
                          <span>Improving since last check</span>
@@ -369,7 +376,7 @@
                  </div>
                  <div class="health-status">
                      <div class="status-indicator">
-                         <div class="status-bar status-good" style="width: 85%"></div>
+                         <div class="status-bar" data-index="1"></div>
                      </div>
                  </div>
                  <div class="comments-section">
@@ -383,7 +390,9 @@
              <div class="health-card">
                  <div class="card-header">
                      <h3>Learning</h3>
-                     <div class="card-description">Are we improving skills and learning new things?</div>
+                     <div class="card-description">
+                       Are we improving skills and learning new things?
+                     </div>
                      <div class="trend-indicator">
                          <span class="trend-icon trend-down">↓</span>
                          <span>Declining since last check</span>
@@ -391,7 +400,7 @@
                  </div>
                  <div class="health-status">
                      <div class="status-indicator">
-                         <div class="status-bar status-poor" style="width: 45%"></div>
+                         <div class="status-bar" data-index="2"></div>
                      </div>
                  </div>
                  <div class="comments-section">
@@ -405,7 +414,9 @@
              <div class="health-card">
                  <div class="card-header">
                      <h3>Fun</h3>
-                     <div class="card-description">Do we enjoy our work and have fun together?</div>
+                     <div class="card-description">
+                       Do we enjoy our work and have fun together?
+                     </div>
                      <div class="trend-indicator">
                          <span class="trend-icon trend-up">↑</span>
                          <span>Improving since last check</span>
@@ -413,7 +424,7 @@
                  </div>
                  <div class="health-status">
                      <div class="status-indicator">
-                         <div class="status-bar status-good" style="width: 80%"></div>
+                         <div class="status-bar" data-index="3"></div>
                      </div>
                  </div>
                  <div class="comments-section">
@@ -427,7 +438,9 @@
              <div class="health-card">
                  <div class="card-header">
                      <h3>Focus</h3>
-                     <div class="card-description">Are we able to focus on important work without distractions?</div>
+                     <div class="card-description">
+                       Are we able to focus on important work without distractions?
+                     </div>
                      <div class="trend-indicator">
                          <span class="trend-icon trend-neutral">→</span>
                          <span>Stable</span>
@@ -435,7 +448,7 @@
                  </div>
                  <div class="health-status">
                      <div class="status-indicator">
-                         <div class="status-bar status-medium" style="width: 60%"></div>
+                         <div class="status-bar" data-index="4"></div>
                      </div>
                  </div>
                  <div class="comments-section">
@@ -449,7 +462,9 @@
              <div class="health-card">
                  <div class="card-header">
                      <h3>Collaboration</h3>
-                     <div class="card-description">How well do we collaborate within and across teams?</div>
+                     <div class="card-description">
+                       How well do we collaborate within and across teams?
+                     </div>
                      <div class="trend-indicator">
                          <span class="trend-icon trend-up">↑</span>
                          <span>Improving</span>
@@ -457,17 +472,17 @@
                  </div>
                  <div class="health-status">
                      <div class="status-indicator">  
-                         <div class="status-bar status-good" style="width: 80%"></div>
+                         <div class="status-bar" data-index="5"></div>
                      </div>
                  </div>
                  <div class="comments-section">
                      <div class="comment">
-                         "New collaboration tools and cross-team initiatives have broken down."
+                         "New collaboration tools and cross-team initiatives have broken down silos."
                      </div>
                  </div>
              </div>
          </div>
-         <!-- email subscription form at the bottom of the page -->
+         <!-- email subscription form at the bottom -->
          <div class="email-subscription">
              <h2>Receive This Report</h2>
              <p>Get this health check report delivered to your inbox</p>
@@ -475,39 +490,56 @@
                  <input type="email" class="email-input" placeholder="Enter your email" required>
                  <div class="checkbox-container">
                      <input type="checkbox" id="subscribe-checkbox">
-                     <label for="subscribe-checkbox">I agree to receive this report and future updates</label>
+                     <label for="subscribe-checkbox">
+                       I agree to receive this report and future updates
+                     </label>
                  </div>
                  <button type="submit" class="submit-button">Download Report</button>
              </form>
          </div> 
      </div>
      
-     <script>        
-         // Simple animation for status bars on page load referenced from online video
-         window.addEventListener('DOMContentLoaded', () => {
-             const statusBars = document.querySelectorAll('.status-bar');
-             statusBars.forEach(bar => {
-                 const width = bar.style.width;
-                 bar.style.width = '0';
-                 setTimeout(() => {
-                     bar.style.width = width;
-                 }, 300);
-             });
-         });
-         
-         // Email subscription form referecned from w3schools
-         const emailForm = document.querySelector('.email-form');
-         emailForm.addEventListener('submit', (e) => {
-             e.preventDefault();
-             const email = document.querySelector('.email-input').value;
-             const isSubscribed = document.getElementById('subscribe-checkbox').checked;
-             
-             if (isSubscribed) {
-                 alert(`Thank you! The report will be sent to ${email}`);
-             } else {
-                 alert('Please check the subscription box to receive the report.');
-             }
-         });
+     <script>
+     window.addEventListener('DOMContentLoaded', () => {
+       // 1) read saved responses
+       const responses = JSON.parse(localStorage.getItem('healthCheckResponses')) || {};
+       
+       // 2) map each to class + width
+       const mapping = {
+         green:  { cls: 'status-good',   pct: '100%' },
+         amber:  { cls: 'status-medium', pct: '66%'  },
+         red:    { cls: 'status-poor',   pct: '33%'  },
+       };
+       
+       // select all status bars by data-index
+       document.querySelectorAll('.status-bar').forEach(bar => {
+         const idx = bar.getAttribute('data-index');
+         const resp = responses[idx];
+         if (mapping[resp]) {
+           bar.classList.add(mapping[resp].cls);
+           bar.style.width = mapping[resp].pct;
+         }
+       });
+ 
+       // 3) animate from 0 → target
+       document.querySelectorAll('.status-bar').forEach(bar => {
+         const final = bar.style.width;
+         bar.style.width = '0';
+         setTimeout(() => bar.style.width = final, 300);
+       });
+     });
+ 
+     // email subscription handler
+     const emailForm = document.querySelector('.email-form');
+     emailForm.addEventListener('submit', e => {
+       e.preventDefault();
+       const email = document.querySelector('.email-input').value;
+       const ok = document.getElementById('subscribe-checkbox').checked;
+       alert(ok
+         ? `Thank you! The report will be sent to ${email}`
+         : 'Please check the subscription box to receive the report.'
+       );
+     });
      </script>
  </body>
  </html>
