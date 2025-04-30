@@ -1,4 +1,4 @@
- <!--coded by Hooria User, health check card, co-collaborator on Departments,Team Sumaya  -->
+ # coded by Hooria who did User & health check card. Co-collaborator who did Departments & Team  is Sumaya 
 from django.db import models
 
 
