@@ -1,18 +1,32 @@
 <!--Author : Dhruvi Soni (Student Id: W19121633)
-co-author:Hooria (helped in adding animations)
+co-author:Hooria (helped in adding progress bar css)
 -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sky Health Check - LocalStorage + Animations</title>
+  <title>Sky Health Check</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
+  <!--Security headers for META tags-->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"> 
+  <meta http-equiv="X-Frame-Options" content="DENY">       
+  <meta http-equiv="Referrer-Policy" content="no-referrer">  
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' https://cdn.jsdelivr.net; 
+                 script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; 
+                 style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; 
+                 img-src 'self' data:; 
+                 connect-src 'self'; 
+                 font-src 'self' https://cdn.jsdelivr.net; 
+                 frame-ancestors 'none';"> 
+      
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
+    /* General body styling */
     body {
       background: url("{% static 'images/Background-img.png' %}") no-repeat center center fixed;
       background-size: cover;
@@ -20,6 +34,7 @@ co-author:Hooria (helped in adding animations)
       font-family: Arial, sans-serif;
       color: white;
     }
+    /* header styling */
     .header {
       background-color: rgba(0,0,128,0.7);
       padding: 15px;
@@ -30,6 +45,7 @@ co-author:Hooria (helped in adding animations)
       text-shadow: 1px 1px #000;
       position: relative;
     }
+    /* dropdown styling for selecting team and subteams */
     .top-selects {
       background-color: rgba(0,0,128,0.8);
       padding: 10px;
@@ -59,6 +75,7 @@ co-author:Hooria (helped in adding animations)
       width: 80px;
       height: auto;
     }
+    /*progress bar styling*/
     .progress-container {
       margin: 20px auto;
       width: 70%;
@@ -77,6 +94,7 @@ co-author:Hooria (helped in adding animations)
       color: black;
       font-weight: bold;
     }
+    /*health card styling*/
     .health-card {
       background: rgba(0, 0, 255, 0.6);
       border-radius: 20px;
@@ -110,6 +128,7 @@ co-author:Hooria (helped in adding animations)
     .vote-buttons {
       margin-top: 30px;
     }
+    /* vote button styling*/
     .vote-buttons button {
       width: 80px;
       height: 80px;
@@ -126,7 +145,6 @@ co-author:Hooria (helped in adding animations)
 </head>
 
 <body>
-
 <!-- Header -->
 <div class="header">
   Hello John! Welcome to SKY health check.
@@ -162,7 +180,7 @@ co-author:Hooria (helped in adding animations)
 
 <!-- Health Card -->
 <div id="card-container">
-  <!-- Dynamic content by JS -->
+  <!-- Dynamic content taken by JavaScript -->
 </div>
 
 <!-- Navigation -->
@@ -176,7 +194,20 @@ co-author:Hooria (helped in adding animations)
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-// 10 Health Check Questions
+  /**CSRF security for JavaScript*/
+  function getCSRFToken() {
+    let token = null;
+    const cookies = document.cookie ? document.cookie.split(';') : [];
+    cookies.forEach(c => {
+      const [name, value] = c.trim().split('=');
+      if (name === 'csrftoken') token = decodeURIComponent(value);
+    });
+    return token;
+  }
+</script>
+
+<script>
+// Array for Health Check Questions
 const questions = [
   {title: "Delivering Value", descriptionLeft: "We deliver great stuff! Stakeholders are happy.", descriptionRight: "We deliver poor quality. Stakeholders are unhappy."},
   {title: "Codebase Health", descriptionLeft: "The code is clean and maintainable.", descriptionRight: "The code is messy and risky."},
@@ -221,7 +252,7 @@ function renderCard() {
   updateProgress();
   updateButtons();
 }
-
+// Select vote and save to local storage
 function selectVote(button, color) {
   const buttons = button.parentElement.querySelectorAll('button');
   buttons.forEach(btn => btn.classList.remove('selected'));
@@ -229,7 +260,7 @@ function selectVote(button, color) {
   responses[current] = color;
   localStorage.setItem('healthCheckResponses', JSON.stringify(responses));
 }
-
+// Highlight saved vote
 function highlightSavedVote() {
   const saved = responses[current];
   if (saved) {
@@ -239,28 +270,28 @@ function highlightSavedVote() {
     if (saved === 'red') btns[2].classList.add('selected');
   }
 }
-
+// To go to the next card
 function nextCard() {
   if (current < questions.length - 1) {
     current++;
     renderCard();
   }
 }
-
+//To go back to the previous card
 function prevCard() {
   if (current > 0) {
     current--;
     renderCard();
   }
 }
-
+// update progress bar
 function updateProgress() {
   const progress = ((current + 1) / questions.length) * 100;
   const progressBar = document.getElementById('progress-bar');
   progressBar.style.width = progress + '%';
   progressBar.innerText = Math.round(progress) + '%';
 }
-
+// update navigation buttons
 function updateButtons() {
   const nextBtn = document.getElementById('nextBtn');
   const finishBtn = document.getElementById('finishBtn');
@@ -272,18 +303,18 @@ function updateButtons() {
     finishBtn.classList.add('d-none');
   }
 }
-
+// Help dialog box  for each question
 function showHelp(left, right) {
   alert(`Good:\n${left}\n\nBad:\n${right}`);
 }
 
+// Save responses to local storage
 function finish() {
-    // 1) persist into localStorage
+    
     localStorage.setItem('healthCheckResponses', JSON.stringify(responses));
-    // 2) then navigate to the Django results view
     window.location.href = "{% url 'results' %}";
 }
-
+// Initialize first health card
 renderCard();
 </script>
 

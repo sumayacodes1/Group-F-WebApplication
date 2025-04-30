@@ -1,19 +1,16 @@
+# Authors: Dhruvi Soni and Kashish Jadhav
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
-
-# Create your views here.
+from django.contrib.auth import authenticate, login
+from .models import User  
+# view for splash screen
 def home(request):
     return render(request, 'fabolous/SplashScreen.html')
 
-   
-
-from django.contrib.auth import authenticate, login
-
-
-from .models import User  # your custom User model
+# view for login page
 
 def login_view(request):
     if request.method == 'POST':
@@ -40,12 +37,14 @@ def login_view(request):
 
     return render(request, 'fabolous/login.html')
 
+# admin dashboard 
 def admin_dashboard(request):
     user = get_logged_in_user(request)
     if not user or user.roles != 'admin':
         return redirect('login')
     return render(request, 'fabolous/a_dash.html')
 
+#view for user registration
 def register_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -64,25 +63,33 @@ def register_view(request):
 
     return render(request, 'fabolous/Registaration.html')
 
+# view for questionnaire page
+
 def questionnaire_view(request):
     return render(request, 'fabolous/Health-check Questionaire.html')
 
-def admin_dashboard(request):
-    return render(request, 'fabolo  us/a_dash.html')
+# view for custom admin page
+
 
 def custom_admin(request):
     return render(request, 'fabolous/admin.html')
 
+#view for help page
 def help_page(request):
     return render(request, 'fabolous/how_to.html')
 
+# view for user dashboard
 def user_dashboard(request):
     return render(request, 'fabolous/u_dash.html')
 
+# view for results
 def results_view(request):
     return render(request, 'fabolous/results.html')
 
+# view for settings page
 def settings_view(request):
     return render(request, 'fabolous/settingpage.html')
+
+# view for navigation page
 def nav_view(request):
     return render(request, 'fabolous/nav.html')

@@ -1,3 +1,4 @@
+# Authors: Dhruvi Soni and Kashish Jadhav
 """
 URL configuration for groupfabolous project.
 
@@ -18,13 +19,14 @@ from django.contrib import admin
 from django.urls import path
 from fabolous import views as fabolousViews
 
+#URL patterns for cw
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', fabolousViews.home, name='home'),
-    path('login/', fabolousViews.login_view, name='login'),  # Map '/login/' to login_view
-    path('nav/', fabolousViews.nav_view, name='nav'),  # Map '/nav/' to nav_view
+    path('login/', fabolousViews.login_view, name='login'),  
+    path('nav/', fabolousViews.nav_view, name='nav'),  
     path('register/', fabolousViews.register_view, name='register'),
-    path('how-to/', fabolousViews.help_page, name='help'),  # Comes before voting
+    path('how-to/', fabolousViews.help_page, name='help'),  
     path('vote/', fabolousViews.questionnaire_view, name='vote'),
     path('results/', fabolousViews.results_view, name='results'),
     path('user-dashboard/', fabolousViews.user_dashboard, name='user_dashboard'),
