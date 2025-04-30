@@ -32,7 +32,7 @@ def login_view(request):
             if user.roles.lower() == 'admin':
                 return redirect('admin_dashboard')
             elif user.roles.lower() == 'engineer':
-                return redirect('user_dashboard')
+                return render(request, 'fabolous/nav.html')
             else:
                 return redirect('home')
         else:
