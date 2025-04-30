@@ -1,3 +1,4 @@
+#author is Hooria and coauthor is Sumaya
 from django.contrib import admin
 from .models import Department
 from .models import User
