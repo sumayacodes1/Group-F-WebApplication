@@ -1,0 +1,21 @@
+Merge branch 'main' of https://github.com/sumayacodes1/Group-F-WebApplication
+
+# Conflicts:
+#	db.sqlite3
+#	fabolous/__pycache__/views.cpython-311.pyc
+#	fabolous/models.py
+#	fabolous/templates/fabolous/Health-check Questionaire.html
+#	fabolous/templates/fabolous/Registaration.html
+#	fabolous/templates/fabolous/SplashScreen.html
+#	fabolous/templates/fabolous/a_dash.html
+#	fabolous/templates/fabolous/admin.html
+#	fabolous/templates/fabolous/login.html
+#	fabolous/templates/fabolous/nav.html
+#	fabolous/templates/fabolous/results.html
+#	fabolous/templates/fabolous/u_dash.html
+#	fabolous/urls.py
+#	fabolous/views.py
+#	groupfabolous/__pycache__/urls.cpython-311.pyc
+#	groupfabolous/urls.py
+#	login.html
+#	manage.py
