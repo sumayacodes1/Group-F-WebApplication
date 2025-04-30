@@ -268,10 +268,10 @@
             
                 
                 <div class="sidebar">
-                    <button class="cloud-button">User<br>Settings</button>
-                    <button class="cloud-button">Preferences</button>
-                    <button class="cloud-button">Security</button>
-                    <button class="cloud-button">Home</button>
+                    <a class="cloud-button" href="{% url 'help' %}">Health Check</a>
+                    <a class="cloud-button" href="{% url 'user_dashboard' %}">Team Dashboard</a>
+                    <a class="cloud-button" href="{% url 'results' %}">View Results</a>
+                    <a class="cloud-button" href="{% url 'settings' %}">Settings Page</a>
                 </div>
             
             <div class="form-container">

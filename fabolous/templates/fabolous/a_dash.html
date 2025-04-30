@@ -381,11 +381,10 @@
 <body>
     <!-- Side Navigation Bar -->
     <div class="sidenav">
-        <a href="a_dash.html">Admin Dashboard</a>
-        <a href="Health-check Questionaire.html">Health Check</a>
-        <a href="results.html">View Results</a>
-        
-        <a href="settingpage.html">System Settings</a>
+        <a href="{% url 'help' %}">Health Check</a>
+        <a href="{% url 'user_dashboard' %}">Team Dashboard</a>
+        <a href="{% url 'results' %}">View Results</a>
+        <a href="{% url 'settings' %}">Settings Page</a>
     </div>
     
     <!-- Main Content Area -->

@@ -93,10 +93,10 @@
     <!-- Side Navigation -->
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="Health-check Questionaire.html">Health Check</a>
-        <a href="u_dash.html">Team Dashboard</a>
-        <a href="results.html">View Results</a>
-        <a href="settingpage.html">Settings Page</a>
+        <a href="{% url 'help' %}">Health Check</a>
+        <a href="{% url 'user_dashboard' %}">Team Dashboard</a>
+        <a href="{% url 'results' %}">View Results</a>
+        <a href="{% url 'settings' %}">Settings Page</a>
     </div>
 
     

@@ -266,11 +266,10 @@
 <body>
   <!-- side navigation menu links -->
   <div id="mySidenav" class="sidenav">
-    <a href="u_dash.html">Dashboard</a>
-    <a href="u_dash.html">Team Overview</a>
-    <a href="how_to.html">Health Check</a>
-    <a href="results.html">View Results</a>
-    <a href="settingpage.html">Settings</a>
+    <a href="{% url 'help' %}">Health Check</a>
+        <a href="{% url 'user_dashboard' %}">Team Dashboard</a>
+        <a href="{% url 'results' %}">View Results</a>
+        <a href="{% url 'settings' %}">Settings Page</a>
   </div>
 
   <div class="page-wrapper">
