@@ -1,5 +1,6 @@
 <!-- coded by Sadia -->
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,12 +107,13 @@
     <div class="main-content">
         <div class="welcome-text">Welcome USER</div>
         
-        <div class="button-container"> 
-            <button class="menu-button" onclick="location.href='how_to.html'">health check</button>
-            <button class="menu-button" onclick="location.href='u_dash.html'">team dashboard</button>
-            <button class="menu-button" onclick="location.href='results.html'">view results</button>
-            <button class="menu-button" onclick="location.href='settingpage.html'">settings page</button>
+        <div class="button-container">
+            <a href="{% url 'help' %}" class="menu-button">health check</a>
+            <a href="{% url 'user_dashboard' %}" class="menu-button">team dashboard</a>
+            <a href="{% url 'results' %}" class="menu-button">view results</a>
+            <a href="{% url 'settings' %}" class="menu-button">settings page</a>
         </div>
+          
     </div>
     
     <!-- Menu Toggle Button (hidden by default) -->
