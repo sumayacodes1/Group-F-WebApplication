@@ -84,3 +84,5 @@ def results_view(request):
 
 def settings_view(request):
     return render(request, 'fabolous/settingpage.html')
+def nav_view(request):
+    return render(request, 'fabolous/nav.html')
