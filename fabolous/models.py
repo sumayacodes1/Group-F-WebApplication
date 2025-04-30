@@ -1,3 +1,4 @@
+ # coded by Hooria who did User & health check card. Co-collaborator who did Departments & Team  is Sumaya 
 from django.db import models
 
 
