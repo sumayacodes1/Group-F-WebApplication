@@ -101,7 +101,12 @@
 
     
     <!-- Logo -->
-    <img src="{% static 'images\skylogo.png'%}" alt="Sky Logo" class="logo" onclick="goToHome()">
+    <a href="{% url 'user_dashboard' %}">
+        <img src="{% static 'images/skylogo.png' %}"
+             alt="Sky Logo"
+             class="logo"
+             style="cursor:pointer;">
+    </a>      
     
     <!-- Main Content -->
     <div class="main-content">
