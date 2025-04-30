@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url("{% static 'images/3.jpg' %}");
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Prevent any scrolling */
+            padding: 10px;
+        
+        }
+        
+        .registration-container {
+            background-image: url("{% static 'images/5.jpg'%}");
+            padding: 20px;
+            border-radius: 10px;
+            width: 500px;
+            max-height: 100vh; /* Ensure it never exceeds viewport height */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden; /* Hide any potential overflow */
+        }
+        
+        .form-content {
+            max-height: calc(95vh - 50px); /* Account for padding */
+          
+            padding-right: 0px; /* Prevent content from touching scrollbar */
+        }
+        
+        /* Hide scrollbar but keep functionality */
+        .form-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .form-content::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+        
+        .form-heading {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .selection-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .selection-col {
+            flex: 1;
+        }
+        
+        .icon-preview {
+            text-align: center;
+            font-size: 22px;
+            margin-top: 8px;
+            height: 25px;
+            color: #3498db;
+        }
+        
+        .terms-checkbox {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .terms-checkbox input {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+        
+        .submit-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <div class="form-content">
+            <h1 class="form-heading">fill out the form to get registered</h1>
+            
+            <div class="form-group">
+                <label for="name">enter your name here:</label>
+                <input type="text" id="name" placeholder="your full name">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">enter your email address:</label>
+                <input type="email" id="email" placeholder="skyteammember@sky.co.uk">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">enter your contact number:</label>
+                <input type="tel" id="phone" placeholder="+447 123 456 788">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">enter your password:</label>
+                <input type="password" id="password" placeholder="8 character password...">
+            </div>
+            
+            <div class="form-group">
+                <label>select your team and icon:</label>
+                <div class="selection-row">
+                    <div class="selection-col">
+                        <select id="team">
+                            <option value="" disabled selected>Select team</option>
+                            <option value="Astrato">Astrato</option>
+                            <option value="Orbital">Orbital</option>
+                            <option value="Nebula">Nebula</option>
+                        </select>
+                    </div>
+                    <div class="selection-col">
+                        <select id="icon">
+                            <option value="" disabled selected>Select icon</option>
+                            <option value="fa-rocket">Rocket</option>
+                            <option value="fa-satellite">Satellite</option>
+                            <option value="fa-cloud">Cloud</option>
+                        </select>
+                        <div class="icon-preview" id="iconPreview">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="terms-checkbox">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">I agree to the Terms & Conditions</label>
+            </div>
+        </div>
+        
+        <button type="submit" class="submit-btn" id="submitBtn" disabled>SUBMIT</button>
+    </div>
+
+    <script>
+        document.getElementById('terms').addEventListener('change', function() {
+            document.getElementById('submitBtn').disabled = !this.checked;
+        });
+
+        document.getElementById('icon').addEventListener('change', function() {
+            const iconClass = this.value || 'fa-user';
+            document.getElementById('iconPreview').innerHTML = `<i class="fas ${iconClass}"></i>`;
+        });
+    </script>
+</body>
+</html>
